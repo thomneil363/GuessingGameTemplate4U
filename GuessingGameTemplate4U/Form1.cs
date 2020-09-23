@@ -19,6 +19,8 @@ namespace GuessingGameTemplate4U
     {
         //TODO create global list to store user guesses
 
+        public static List<int> guesses = new List<int>();
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace GuessingGameTemplate4U
         {
             //launch the Main Screen
             MainScreen ms = new MainScreen();
+            ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
+
             this.Controls.Add(ms);
         }
     }

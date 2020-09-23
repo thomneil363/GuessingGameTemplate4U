@@ -26,33 +26,55 @@ namespace GuessingGameTemplate4U
 
         private void guessButton_Click(object sender, EventArgs e)
         {
-            
-            int guess = Convert.ToInt16(inputBox.Text);
+            int parsedValue;
+            if (int.TryParse(inputBox.Text, out parsedValue))
 
-            //TODO add guess to List of guesses on Form1
-
-
-            if (guess < rand)
             {
-                outputLabel.Text = "Too Low!";
-            }
-            else if (guess > rand)
-            {
-                outputLabel.Text = "Too High!";
-            }
+
+                int guess = Convert.ToInt16(inputBox.Text);
+
+                //TODO add guess to List of guesses on Form1
+                Form1.guesses.Add(guess);
+
+                if (guess < rand)
+                {
+                    outputLabel.Text = "Too Low!";
+                }
+                else if (guess > rand)
+                {
+                    outputLabel.Text = "Too High!";
+                }
+                else
+                {
+                    outputLabel.Text = "You Got it!";
+                    Refresh();
+                    Thread.Sleep(1000);
+
+                    //TODO close this screen and open a Results Screen (you need to create this)
+
+                    Form f = this.FindForm();
+                    f.Controls.Remove(this);
+
+                    // Create an instance of the SecondScreen
+                    ResultScreen rs = new ResultScreen();
+                    rs.Location = new Point((f.Width - rs.Width) / 2, (f.Height - rs.Height) / 2);
+
+                    // Add the User Control to the Form
+                    f.Controls.Add(rs);
+
+                }
+
+                inputBox.Text = "";
+                inputBox.Focus();
+            } // End of int check
             else
             {
-                outputLabel.Text = "You Got it!";
-                Refresh();
-                Thread.Sleep(1000);
 
-                //TODO close this screen and open a Results Screen (you need to create this)
+                outputLabel.Text = "Please enter an Integer";
+
+                inputBox.Text = "";
 
             }
-
-            inputBox.Text = "";
-            inputBox.Focus();
         }
-
     }
 }
